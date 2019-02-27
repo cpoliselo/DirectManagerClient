@@ -3,12 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
-import { Cliente } from '../class/cliente';
-import { TelefoneTipo } from '../class/telefoneTipo';
-import { RedeSocialTipo } from '../class/redeSocialTipo';
-import { EnderecoTipo } from '../class/enderecoTipo';
 import { MessageService } from './message.service';
 
 const httpOptions = {
