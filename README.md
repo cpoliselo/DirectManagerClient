@@ -52,6 +52,9 @@ Desenvolvido utilizando:
 - JWToken
 - Swagger
 
+### Criação DB
+Logo ao iniciar projeto serão executadas as migrations e a alimentação das tabelas de domínio
+
 ### Documentação das APIs
 [Swagger | https://localhost:44351/swagger/index.html]
 
