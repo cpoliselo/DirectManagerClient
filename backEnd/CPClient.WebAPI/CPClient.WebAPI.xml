@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CPClient.WebAPI</name>
+    </assembly>
+    <members>
+        <member name="M:CPClient.WebAPI.Controllers.AuthController.Login(CPClient.Service.Model.LoginModel)">
+            <summary>
+            Inserir Clientes
+            </summary>
+            <param name="user"></param>
+        </member>
+        <member name="M:CPClient.WebAPI.Controllers.ClienteController.Get">
+            <summary>
+            Retorna todos os clientes.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CPClient.WebAPI.Controllers.ClienteController.Get(System.Int32)">
+            <summary>
+            Retorna cliente por Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CPClient.WebAPI.Controllers.ClienteController.Add(CPClient.Service.Model.ClienteModel)">
+            <summary>
+            Inserir Clientes
+            </summary>
+            <param name="clienteModel"></param>
+        </member>
+        <member name="M:CPClient.WebAPI.Controllers.ClienteController.Delete(System.Int32)">
+            <summary>
+            Inativar Clientes
+            </summary>
+            <remarks>Essa API irá inativar o cliente.</remarks>
+            <param name="id"></param>
+        </member>
+        <member name="M:CPClient.WebAPI.Controllers.ClienteController.Put(CPClient.Service.Model.ClienteModel)">
+            <summary>
+            Atualizar Clientes
+            </summary>
+            <param name="clienteModel"></param>
+        </member>
+    </members>
+</doc>

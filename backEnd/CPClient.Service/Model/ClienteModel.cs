@@ -15,6 +15,8 @@ namespace CPClient.Service.Model
         public string Rg { get; set; }
         public DateTime DataNascimento { get; set; }
 
+        public bool Ativo { get; set; }
+
         public virtual ICollection<ClienteEnderecoModel> Enderecos { get; set; }
 
         public virtual ICollection<ClienteTelefoneModel> Telefones { get; set; }

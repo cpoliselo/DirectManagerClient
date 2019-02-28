@@ -1,18 +1,24 @@
-import { Component, OnInit, Injectable, EventEmitter, AfterViewInit, ViewChild, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, Validators, NgForm } from '@angular/forms';
-import { MatFormFieldControl, MatTableDataSource, MatNativeDateModule, MatPaginator, MatSort, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, OnInit, ViewChild, Inject, TemplateRef } from '@angular/core';
+import { FormBuilder, FormArray, Validators } from '@angular/forms';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Observable } from 'rxjs';
 import { ClienteService } from '../service/cliente.service';
-import { DominioService } from './service/dominio.service';
-import { AuthService } from './auth.service';
+import { DominioService } from '../service/dominio.service';
+import { AuthService } from '../service/auth.service';
 import { Cliente } from '../class/cliente';
 import { TelefoneTipo } from '../class/telefoneTipo';
 import { EnderecoTipo } from '../class/enderecoTipo';
 import { RedeSocialTipo } from '../class/redeSocialTipo';
 import { NumberValidator } from '../class/validator';
-import { TextMaskModule } from 'angular2-text-mask';
-// import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { DomSanitizer } from '@angular/platform-browser';
+
+import { ngxLoadingAnimationTypes, NgxLoadingComponent } from '../../../projects/ngx-loading/src/public_api';
+
+const PrimaryWhite = '#ffffff';
+const SecondaryGrey = '#ccc';
+const PrimaryRed = '#dd0031';
+const SecondaryBlue = '#006ddd';
 
 
 // import { NgBrazilValidators } from 'ng-brazil';
@@ -27,27 +33,31 @@ export interface MessageData {
   templateUrl: './cliente.component.html',
   styleUrls: ['./cliente.component.css'],
   providers: [
-    // The locale would typically be provided on the root module of your application. We do it at
-    // the component level here, due to limitations of our example generation script.
-    {provide: MAT_DATE_LOCALE, useValue: 'pt-br'},
-
-    // `MomentDateAdapter` and `MAT_MOMENT_DATE_FORMATS` can be automatically provided by importing
-    // `MatMomentDateModule` in your applications root module. We provide it at the component level
-    // here, due to limitations of our example generation script.
-    // {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    // {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-br' }
   ],
 })
 
 export class ClienteComponent implements OnInit {
-  displayedColumns: string[] = ['id','Nome', 'dataNascimento', 'cpf', 'rg', 'edit', 'delete'];
+  @ViewChild('ngxLoading') ngxLoadingComponent: NgxLoadingComponent;
+  @ViewChild('customLoadingTemplate') customLoadingTemplate: TemplateRef<any>;
+  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
+  public loading = false;
+  public primaryColour = PrimaryWhite;
+  public secondaryColour = SecondaryGrey;
+  public coloursEnabled = false;
+  public loadingTemplate: TemplateRef<any>;
+  public config = { animationType: ngxLoadingAnimationTypes.none, primaryColour: this.primaryColour, secondaryColour: this.secondaryColour, tertiaryColour: this.primaryColour, backdropBorderRadius: '3px' };
+  displayedColumns: string[] = ['id', 'Nome', 'dataNascimento', 'cpf', 'rg', 'edit', 'delete'];
   dataSaved = false; s
   clienteForm: any;
   allclientes: Observable<Cliente[]>;
   listCliente: Cliente[];
-  allTelefoneTipo: TelefoneTipo[];
-  allEnderecoTipo: EnderecoTipo[];
-  allRedeSocialTipo: RedeSocialTipo[];
+  allTelefoneTipo: Observable<TelefoneTipo[]>;
+  listTelefoneTipo: TelefoneTipo[];
+  allEnderecoTipo: Observable<EnderecoTipo[]>;
+  listEnderecoTipo: EnderecoTipo[];
+  allRedeSocialTipo: Observable<RedeSocialTipo[]>;
+  listRedeSocialTipo: RedeSocialTipo[];
   clienteIdUpdate = null;
   massage = null;
   step = 0;
@@ -57,13 +67,13 @@ export class ClienteComponent implements OnInit {
   messageConfirmation: string;
   submitted = false;
 
-  constructor(private formbulider: FormBuilder, 
-              private clienteService: ClienteService, 
-              private dominioService: DominioService, 
-              private authService: AuthService,
-              public dialog: MatDialog, 
-              // private adapter: DateAdapter<any>
-              ) { }
+  constructor(private formbulider: FormBuilder,
+    private clienteService: ClienteService,
+    private dominioService: DominioService,
+    private authService: AuthService,
+    public dialog: MatDialog,
+    private sanitizer: DomSanitizer
+  ) { }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogMessage, {
@@ -104,7 +114,8 @@ export class ClienteComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.getToken();
+    this.loading = true;
+    this.authService.getToken()
     this.createNewForm();
     this.loadAllclientes();
   }
@@ -180,56 +191,23 @@ export class ClienteComponent implements OnInit {
 
   loadTelefoneTipo() {
     this.allTelefoneTipo = this.dominioService.getAllTelefoneTipo();
-    // [
-    //   {
-    //     id: 1,
-    //     descricao: "Residencial"
-    //   },
-    //   {
-    //     id: 2,
-    //     descricao: "Celular"
-    //   },
-    //   {
-    //     id: 3,
-    //     descricao: "Comercial"
-    //   }
-    // ];
+    this.allTelefoneTipo.subscribe(res => {
+      this.listTelefoneTipo = res;
+    });
   }
 
   loadRedeSocialTipo() {
     this.allRedeSocialTipo = this.dominioService.getAllRedeSocialTipo();
-    // [
-    //   {
-    //     id: 1,
-    //     descricao: "Facebook"
-    //   },
-    //   {
-    //     id: 2,
-    //     descricao: "Instagran"
-    //   },
-    //   {
-    //     id: 3,
-    //     descricao: "LinkedIn"
-    //   },
-    //   {
-    //     id: 4,
-    //     descricao: "Outra"
-    //   }
-    // ];
+    this.allRedeSocialTipo.subscribe(res => {
+      this.listRedeSocialTipo = res;
+    });
   }
 
   loadEnderecoTipo() {
     this.allEnderecoTipo = this.dominioService.getAllEnderecoTipo();
-    // [
-    //   {
-    //     id: 1,
-    //     descricao: "Residencial"
-    //   },
-    //   {
-    //     id: 2,
-    //     descricao: "Comercial"
-    //   }
-    // ];
+    this.allEnderecoTipo.subscribe(res => {
+      this.listEnderecoTipo = res;
+    });
   }
 
   loadAllclientes() {
@@ -237,10 +215,12 @@ export class ClienteComponent implements OnInit {
     this.allclientes.subscribe(res => {
       this.dataSource = new MatTableDataSource(res);
       this.dataSource.paginator = this.paginator;
+      this.loading = false;
     });
 
   }
   onFormSubmit() {
+    this.loading = true;
     this.submitted = true;
 
     // stop here if form is invalid
@@ -257,6 +237,8 @@ export class ClienteComponent implements OnInit {
   }
 
   loadclienteToEdit(clienteId: number) {
+    this.loading = true;
+    this.authService.getToken();
     this.clienteService.getClienteById(clienteId).subscribe(cliente => {
       this.loadEdit = cliente;
       this.patchForm();
@@ -264,6 +246,7 @@ export class ClienteComponent implements OnInit {
       this.massage = null;
       this.dataSaved = false;
       this.clienteIdUpdate = cliente.id;
+      this.loading = false;
     });
 
   };
@@ -318,13 +301,14 @@ export class ClienteComponent implements OnInit {
   };
 
   Createcliente(cliente: Cliente) {
-    console.log(cliente);
+    this.authService.getToken();
     if (this.clienteIdUpdate == null) {
       this.clienteService.createCliente(cliente).subscribe(
         () => {
           this.dataSaved = true;
           this.messageConfirmation = 'Cliente Cadastrado com sucesso';
           this.massage = 'Cliente Cadastrado com sucesso';
+          this.setStep(0);
           this.openDialog();
           this.loadAllclientes();
           this.clienteIdUpdate = null;
@@ -338,6 +322,7 @@ export class ClienteComponent implements OnInit {
         this.dataSaved = true;
         this.massage = 'Cliente Atualizado com sucesso';
         this.messageConfirmation = 'Cliente Atualizado com sucesso';
+        this.setStep(0);
         this.openDialog();
         this.loadAllclientes();
         this.clienteIdUpdate = null;
@@ -349,11 +334,14 @@ export class ClienteComponent implements OnInit {
   }
 
   deletecliente(id: number) {
+    this.loading = true;
+    this.authService.getToken();
     if (confirm("Deseja realmente inativar o cliente ?")) {
       this.clienteService.deleteClienteById(id).subscribe(() => {
         this.dataSaved = true;
         this.messageConfirmation = 'Cliente Inativado com sucesso';
         this.massage = 'Cliente Inativado com sucesso';
+        this.setStep(0);
         this.openDialog();
         this.loadAllclientes();
         this.clienteIdUpdate = null;

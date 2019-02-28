@@ -7,6 +7,8 @@ import { catchError, tap } from 'rxjs/operators';
 
 import { MessageService } from './message.service';
 
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -15,33 +17,32 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthService {
-  urlAuth = 'https://localhost:44333/api/Auth'; 
-  credentials = {userName:"adminJWT",password:"def@123"}
+  urlAuth = 'https://localhost:44351/api/Auth/login';
+  credentials = { userName: "adminJWT", password: "def@123" }
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private jwtHelper: JwtHelperService) { }
 
   getToken() {
     var tokenAtual = localStorage.getItem("jwt");
-    if (tokenAtual && !this.jwtHelper.isTokenExpired(tokenAtual)){
-        console.log("Token Ok");
-        console.log(tokenAtual);
-        return tokenAtual;
-      }
-      else
-      {
-          console.log("Token Expirado")
-    //npm install angular2-jwt --save
-    return this.http.Post(this.urlAuth, this.credentials, httpOptions)
-    .subscribe(response => {
-        let token = (<any>response).token;
-        localStorage.setItem("jwt", token)})
-      .pipe(
-        tap(_ => {this.log('fetched telefoneTipo'); console.log(_)}),
-        catchError(this.handleError('getAllTelefoneTipo', []))
-      );
-  }
+    if (tokenAtual && !this.jwtHelper.isTokenExpired(tokenAtual)) {
+      console.log("Token Ok");
+      console.log(tokenAtual);
+      return tokenAtual;
+    }
+    else {
+      console.log("Token Expirado")
+      //npm install angular2-jwt --save
+      return this.http.post(this.urlAuth, this.credentials, httpOptions)
+        .subscribe(response => {
+          let token = (<any>response).token;
+          localStorage.setItem("jwt", token);
+          console.log("Token Criado");
+          console.log(token);
+        });
+    }
   }
 
   private log(message: string) {

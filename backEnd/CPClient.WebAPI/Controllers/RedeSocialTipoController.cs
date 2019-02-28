@@ -3,6 +3,8 @@ using CPClient.Data.Interfaces;
 using CPClient.Domain.Entities;
 using CPClient.Service.Interfaces;
 using CPClient.Service.Model;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +25,7 @@ namespace CPClient.WebAPI.Controllers
         }
 
         // GET api/values
-        [HttpGet]
+        [HttpGet, Authorize]
         public List<RedeSocialTipoModel> Get()
         {
             var redeSocial = _serviceWrapper.RedeSocialTipoService.Get();

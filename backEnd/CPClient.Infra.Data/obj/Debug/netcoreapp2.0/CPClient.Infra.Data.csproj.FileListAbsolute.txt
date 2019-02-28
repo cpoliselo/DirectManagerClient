@@ -26,3 +26,17 @@ D:\Users\cpoliselo\Source\Repos\DirectManagerClient\backEnd\CPClient.Infra.Data\
 D:\Users\cpoliselo\Source\Repos\DirectManagerClient\backEnd\CPClient.Infra.Data\obj\Debug\netcoreapp2.0\CPClient.Infra.Data.csproj.CopyComplete
 D:\Users\cpoliselo\Source\Repos\DirectManagerClient\backEnd\CPClient.Infra.Data\obj\Debug\netcoreapp2.0\CPClient.Infra.Data.dll
 D:\Users\cpoliselo\Source\Repos\DirectManagerClient\backEnd\CPClient.Infra.Data\obj\Debug\netcoreapp2.0\CPClient.Infra.Data.pdb
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.Data\bin\Debug\netcoreapp2.0\CPClient.Infra.Data.deps.json
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.Data\bin\Debug\netcoreapp2.0\CPClient.Infra.Data.runtimeconfig.json
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.Data\bin\Debug\netcoreapp2.0\CPClient.Infra.Data.runtimeconfig.dev.json
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.Data\bin\Debug\netcoreapp2.0\CPClient.Infra.Data.dll
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.Data\bin\Debug\netcoreapp2.0\CPClient.Infra.Data.pdb
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.Data\bin\Debug\netcoreapp2.0\CPClient.Domain.dll
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.Data\bin\Debug\netcoreapp2.0\CPClient.Domain.pdb
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.Data\obj\Debug\netcoreapp2.0\CPClient.Infra.Data.csprojAssemblyReference.cache
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.Data\obj\Debug\netcoreapp2.0\CPClient.Infra.Data.csproj.CoreCompileInputs.cache
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.Data\obj\Debug\netcoreapp2.0\CPClient.Infra.Data.AssemblyInfoInputs.cache
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.Data\obj\Debug\netcoreapp2.0\CPClient.Infra.Data.AssemblyInfo.cs
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.Data\obj\Debug\netcoreapp2.0\CPClient.Infra.Data.csproj.CopyComplete
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.Data\obj\Debug\netcoreapp2.0\CPClient.Infra.Data.dll
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.Data\obj\Debug\netcoreapp2.0\CPClient.Infra.Data.pdb

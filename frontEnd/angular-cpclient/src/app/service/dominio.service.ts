@@ -12,41 +12,65 @@ import { EnderecoTipo } from '../class/enderecoTipo';
 import { MessageService } from './message.service';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
 };
 
 @Injectable({
   providedIn: 'root'
 })
 export class DominioService {
-  urlTelefoneTipo = 'https://localhost:44333/api/telefonetipo'; 
-  urlRedeSocialTipo = 'https://localhost:44333/api/redesocialtipo'
-  urlEnderecoTipo = 'https://localhost:44333/api/enderecotipo'
+  url = "https://localhost:44351";
+  urlTelefoneTipo = this.url + '/api/telefonetipo';
+  urlRedeSocialTipo = this.url + '/api/redesocialtipo'
+  urlEnderecoTipo = this.url + '/api/enderecotipo'
 
   constructor(
     private http: HttpClient,
     private messageService: MessageService) { }
 
   getAllTelefoneTipo(): Observable<TelefoneTipo[]> {
-    return this.http.get<TelefoneTipo[]>(this.urlTelefoneTipo)
+    let token = localStorage.getItem("jwt");
+    const httpHeader = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      })
+    };
+
+    return this.http.get<TelefoneTipo[]>(this.urlTelefoneTipo, httpHeader)
       .pipe(
-        tap(_ => {this.log('fetched telefoneTipo'); console.log(_)}),
+        tap(_ => { this.log('fetched telefoneTipo'); }),
         catchError(this.handleError('getAllTelefoneTipo', []))
       );
   }
 
   getAllEnderecoTipo(): Observable<EnderecoTipo[]> {
-    return this.http.get<EnderecoTipo[]>(this.urlEnderecoTipo)
+    let token = localStorage.getItem("jwt");
+    const httpHeader = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      })
+    };
+
+    return this.http.get<EnderecoTipo[]>(this.urlEnderecoTipo, httpHeader)
       .pipe(
-        tap(_ => {this.log('fetched enderecoTipo'); console.log(_)}),
+        tap(_ => { this.log('fetched enderecoTipo'); }),
         catchError(this.handleError('getAllEnderecoTipo', []))
       );
   }
 
   getAllRedeSocialTipo(): Observable<RedeSocialTipo[]> {
-    return this.http.get<RedeSocialTipo[]>(this.urlRedeSocialTipo)
+    let token = localStorage.getItem("jwt");
+    const httpHeader = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      })
+    };
+    return this.http.get<RedeSocialTipo[]>(this.urlRedeSocialTipo, httpHeader)
       .pipe(
-        tap(_ => {this.log('fetched redeSocialTipo'); console.log(_)}),
+        tap(_ => { this.log('fetched redeSocialTipo'); }),
         catchError(this.handleError('getAllRedeSocialTipo', []))
       );
   }

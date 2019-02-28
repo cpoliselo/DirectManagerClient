@@ -3,6 +3,8 @@ using CPClient.Data.Interfaces;
 using CPClient.Domain.Entities;
 using CPClient.Service.Interfaces;
 using CPClient.Service.Model;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +26,7 @@ namespace CPClient.WebAPI.Controllers
         }
 
         // GET api/values
-        [HttpGet]
+        [HttpGet, Authorize]
         public List<TelefoneTipoModel> Get()
         {
             var telefonetipo = _serviceWrapper.TelefoneTipoService.Get();

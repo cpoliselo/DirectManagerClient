@@ -53,18 +53,20 @@ namespace CPClient.WebAPI
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
+                    var urlApp = Configuration.GetSection("UtilSettings:UrlAPI").Value;
+
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
                         ValidateAudience = true,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-
-                        ValidIssuer = "http://localhost:5000",
-                        ValidAudience = "http://localhost:5000",
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345")),
+                        ValidIssuer = urlApp,
+                        ValidAudience = urlApp,
                     };
                 });
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -140,19 +142,6 @@ namespace CPClient.WebAPI
                     template: "{controller}/{action=Index}/{id?}");
             });
 
-            app.UseSpa(spa =>
-            {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });
-
             app.UseCors("EnableCORS");
 
             app.UseSwagger();
@@ -162,9 +151,11 @@ namespace CPClient.WebAPI
             });
         }
 
-        private string GetXmlCommentsPath()
+        private static string GetXmlCommentsPath()
         {
-            return System.IO.Path.Combine(System.AppContext.BaseDirectory, "ASPNETCoreSwaggerDemo.xml");
+            var assemblyName = System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
+            var fileName = System.IO.Path.GetFileName(assemblyName + ".xml");
+            return System.String.Format(@"{0}\{1}", System.AppDomain.CurrentDomain.BaseDirectory, fileName);
         }
     }
 }

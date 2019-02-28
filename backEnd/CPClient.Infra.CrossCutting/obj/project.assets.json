@@ -540,7 +540,7 @@
       ]
     },
     "NETStandard.Library/2.0.0": {
-      "sha512": "7jnbRU+L08FXKMxqUflxEXtVymWvNOrS8yHgu9s6EM8Anr6T/wIX4nZ08j/u3Asz+tCufp3YVwFSEvFTPYmBPA==",
+      "sha512": "49ZAcrnNn56GIJwGoiaI7NpwcEJ8mjUyfSqVYIJMDhOBzPe8HSHS74swF2H0v8fzj7pxLfcYjS9P5PdIqsTQxw==",
       "type": "package",
       "path": "netstandard.library/2.0.0",
       "files": [
@@ -676,23 +676,23 @@
     ]
   },
   "packageFolders": {
-    "D:\\Users\\cpoliselo\\.nuget\\packages\\": {},
+    "C:\\Users\\gutom\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Users\\cpoliselo\\Source\\Repos\\DirectManagerClient\\backEnd\\CPClient.Infra.CrossCutting\\CPClient.Infra.CrossCutting.csproj",
+      "projectUniqueName": "C:\\git\\DirectManagerClient\\backEnd\\CPClient.Infra.CrossCutting\\CPClient.Infra.CrossCutting.csproj",
       "projectName": "CPClient.Infra.CrossCutting",
-      "projectPath": "D:\\Users\\cpoliselo\\Source\\Repos\\DirectManagerClient\\backEnd\\CPClient.Infra.CrossCutting\\CPClient.Infra.CrossCutting.csproj",
-      "packagesPath": "D:\\Users\\cpoliselo\\.nuget\\packages\\",
-      "outputPath": "D:\\Users\\cpoliselo\\Source\\Repos\\DirectManagerClient\\backEnd\\CPClient.Infra.CrossCutting\\obj\\",
+      "projectPath": "C:\\git\\DirectManagerClient\\backEnd\\CPClient.Infra.CrossCutting\\CPClient.Infra.CrossCutting.csproj",
+      "packagesPath": "C:\\Users\\gutom\\.nuget\\packages\\",
+      "outputPath": "C:\\git\\DirectManagerClient\\backEnd\\CPClient.Infra.CrossCutting\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "D:\\Users\\cpoliselo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\gutom\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -700,8 +700,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://pkgs.dev.azure.com/GCMGrosvenor/_packaging/feed/nuget/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.0": {

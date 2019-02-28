@@ -6,11 +6,15 @@ import { DominioService } from './service/dominio.service';
 import { AuthService } from './service/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { JwtModule } from '@auth0/angular-jwt';
+
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
+
+import { NgxLoadingModule } from '../../projects/ngx-loading/src/public_api';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
@@ -38,9 +42,6 @@ import {
   CepServiceFactory, ESTADO_SERVICE,
   EstadoServiceFactory
 } from 'ng-br-tools';
-// import { SigepWebCepService } from './services/sigep-web-cep.service';
-// import { LstEstadosSimplesService } from './services/lst-estados-simples.service';
-// import { LstEstadosIBGEService } from './services/lst-estados-ibge.service';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,14 @@ import {
     DialogMessage
   ],
   imports: [
+    NgxLoadingModule.forRoot({}),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('access_token');
+        }
+      }
+    }),
     // MomentDateAdapter,
     MatDialogModule,
     MatPaginatorModule,

@@ -16,3 +16,12 @@ D:\Users\cpoliselo\Source\Repos\DirectManagerClient\backEnd\CPClient.Infra.Cross
 D:\Users\cpoliselo\Source\Repos\DirectManagerClient\backEnd\CPClient.Infra.CrossCutting\obj\Debug\netcoreapp2.0\CPClient.Infra.CrossCutting.AssemblyInfo.cs
 D:\Users\cpoliselo\Source\Repos\DirectManagerClient\backEnd\CPClient.Infra.CrossCutting\obj\Debug\netcoreapp2.0\CPClient.Infra.CrossCutting.dll
 D:\Users\cpoliselo\Source\Repos\DirectManagerClient\backEnd\CPClient.Infra.CrossCutting\obj\Debug\netcoreapp2.0\CPClient.Infra.CrossCutting.pdb
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.CrossCutting\bin\Debug\netcoreapp2.0\CPClient.Infra.CrossCutting.deps.json
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.CrossCutting\bin\Debug\netcoreapp2.0\CPClient.Infra.CrossCutting.dll
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.CrossCutting\bin\Debug\netcoreapp2.0\CPClient.Infra.CrossCutting.pdb
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.CrossCutting\obj\Debug\netcoreapp2.0\CPClient.Infra.CrossCutting.csprojAssemblyReference.cache
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.CrossCutting\obj\Debug\netcoreapp2.0\CPClient.Infra.CrossCutting.csproj.CoreCompileInputs.cache
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.CrossCutting\obj\Debug\netcoreapp2.0\CPClient.Infra.CrossCutting.AssemblyInfoInputs.cache
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.CrossCutting\obj\Debug\netcoreapp2.0\CPClient.Infra.CrossCutting.AssemblyInfo.cs
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.CrossCutting\obj\Debug\netcoreapp2.0\CPClient.Infra.CrossCutting.dll
+C:\git\DirectManagerClient\backEnd\CPClient.Infra.CrossCutting\obj\Debug\netcoreapp2.0\CPClient.Infra.CrossCutting.pdb

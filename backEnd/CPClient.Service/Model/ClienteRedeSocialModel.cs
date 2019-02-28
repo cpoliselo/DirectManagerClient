@@ -12,5 +12,6 @@ namespace CPClient.Service.Model
         public int Id { get; set; }
         public string URL { get; set; }
         public int RedeSocialTipoId { get; set; }
+        public bool Ativo { get; set; }
     }
 }

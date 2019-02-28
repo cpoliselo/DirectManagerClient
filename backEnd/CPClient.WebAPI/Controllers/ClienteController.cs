@@ -4,6 +4,7 @@ using CPClient.Domain.Entities;
 using CPClient.Service.Interfaces;
 using CPClient.Service.Model;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,13 +34,25 @@ namespace CPClient.WebAPI.Controllers
         // GET api/values
         //[HttpGet]
         [HttpGet, Authorize]
-        public List<ClienteModel> Get()
+        public ActionResult<List<ClienteModel>> Get()
         {
-            var clientes = _serviceWrapper.ClienteService.Get().Where(x => x.Ativo);
+            try
+            {
+                var clientes = _serviceWrapper.ClienteService.Get().Where(x => x.Ativo);
 
-            var clientesRetorno = Mapper.Map<IEnumerable<Cliente>, IEnumerable<ClienteModel>>(clientes);
+                var clientesRetorno = Mapper.Map<IEnumerable<Cliente>, IEnumerable<ClienteModel>>(clientes);
 
-            return clientesRetorno.ToList();
+                clientesRetorno.ToList().ForEach(x =>
+                {
+                    x.Telefones.Where(y => !y.Ativo).ToList().ForEach(z => { x.Telefones.Remove(z); });
+                    x.Enderecos.Where(y => !y.Ativo).ToList().ForEach(z => { x.Enderecos.Remove(z); });
+                    x.RedesSociais.Where(y => !y.Ativo).ToList().ForEach(z => { x.RedesSociais.Remove(z); });
+                });
+
+                return clientesRetorno.ToList();
+            }
+            catch
+            { return BadRequest(); }
         }
 
         // GET api/cliente/5
@@ -48,14 +61,29 @@ namespace CPClient.WebAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize]
         public ActionResult<ClienteModel> Get(int id)
         {
-            var cliente = _serviceWrapper.ClienteService.Get(id);
+            try
+            {
+                var cliente = _serviceWrapper.ClienteService.Get(id);
 
-            var resultado = Mapper.Map<Cliente, ClienteModel>(cliente);
+                if (cliente != null)
+                {
 
-            return resultado;
+                    var resultado = Mapper.Map<Cliente, ClienteModel>(cliente);
+
+                    resultado.Telefones.Where(y => !y.Ativo).ToList().ForEach(z => { resultado.Telefones.Remove(z); });
+                    resultado.Enderecos.Where(y => !y.Ativo).ToList().ForEach(z => { resultado.Enderecos.Remove(z); });
+                    resultado.RedesSociais.Where(y => !y.Ativo).ToList().ForEach(z => { resultado.RedesSociais.Remove(z); });
+
+                    return resultado;
+                }
+                else
+                    return NotFound();
+            }
+            catch
+            { return BadRequest(); }
         }
 
         // POST api/cliente
@@ -63,7 +91,7 @@ namespace CPClient.WebAPI.Controllers
         /// Inserir Clientes
         /// </summary>
         /// <param name="clienteModel"></param>
-        [HttpPost]
+        [HttpPost, Authorize]
         public ActionResult Add([FromBody]ClienteModel clienteModel)
         {
             try
@@ -94,7 +122,7 @@ namespace CPClient.WebAPI.Controllers
         /// </summary>
         /// <remarks>Essa API irá inativar o cliente.</remarks>
         /// <param name="id"></param>
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize]
         public ActionResult Delete(int id)
         {
             try
@@ -120,7 +148,7 @@ namespace CPClient.WebAPI.Controllers
         /// Atualizar Clientes
         /// </summary>
         /// <param name="clienteModel"></param>
-        [HttpPut]
+        [HttpPut, Authorize]
         public ActionResult Put([FromBody]ClienteModel clienteModel)
         {
             try

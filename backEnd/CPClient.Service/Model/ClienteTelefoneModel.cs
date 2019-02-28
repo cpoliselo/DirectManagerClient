@@ -13,5 +13,6 @@ namespace CPClient.Service.Model
         public string DDD { get; set; }
         public string Numero { get; set; }
         public int TelefoneTipoId { get; set; }
+        public bool Ativo { get; set; }
     }
 }

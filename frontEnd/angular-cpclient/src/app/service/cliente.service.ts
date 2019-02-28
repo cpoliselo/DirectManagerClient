@@ -11,14 +11,14 @@ import { Cliente } from '../class/cliente';
 import { MessageService } from './message.service';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json',  })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json', })
 };
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClienteService {
-  urlProd = 'https://localhost:44333/api/cliente'
+  urlProd = 'https://localhost:44351/api/cliente'
 
   constructor(
     private http: HttpClient,
@@ -27,46 +27,73 @@ export class ClienteService {
 
   getAllCliente(): Observable<Cliente[]> {
     let token = localStorage.getItem("jwt");
-
     const httpHeader = {
       headers: new HttpHeaders({
-        "Authorization": "Bearer " + token,
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      })
     };
 
-    return this.http.get<Cliente[]>(this.urlProd)
+    return this.http.get<Cliente[]>(this.urlProd, httpHeader)
       .pipe(
-        tap(_ => {this.log('fetched clientes'); console.log(_)}),
+        tap(_ => { this.log('fetched clientes'); }),
         catchError(this.handleError('getClientes', []))
       );
   }
 
   getClienteById(clienteId: number): Observable<Cliente> {
+    let token = localStorage.getItem("jwt");
+    const httpHeader = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      })
+    };
     const url = `${this.urlProd}/${clienteId}`;
-    return this.http.get<Cliente>(url , httpOptions).pipe(
+    return this.http.get<Cliente>(url, httpHeader).pipe(
       tap(_ => this.log(`fetched Cliente id=${clienteId}`)),
       catchError(this.handleError<Cliente>(`getClienteById id=${clienteId}`))
     );
   }
 
   createCliente(cliente: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(this.urlProd, cliente, httpOptions).pipe(
+    let token = localStorage.getItem("jwt");
+    const httpHeader = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      })
+    };
+    return this.http.post<Cliente>(this.urlProd, cliente, httpHeader).pipe(
       tap((newCliente: Cliente) => this.log(`added Cliente w/ id=${newCliente.id}`)),
       catchError(this.handleError<Cliente>('createCliente'))
     );
   }
 
   updateCliente(cliente: Cliente): Observable<Cliente> {
-    return this.http.put<Cliente>(this.urlProd, cliente, httpOptions).pipe(
+    let token = localStorage.getItem("jwt");
+    const httpHeader = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      })
+    };
+    return this.http.put<Cliente>(this.urlProd, cliente, httpHeader).pipe(
       tap(_ => this.log(`updated Cliente id=${cliente.id}`)),
       catchError(this.handleError<Cliente>(`getClienteById id=${cliente.id}`))
     );
   }
 
   deleteClienteById(clienteid: number): Observable<number> {
+    let token = localStorage.getItem("jwt");
+    const httpHeader = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      })
+    };
     const url = `${this.urlProd}/${clienteid}`;
-    return this.http.delete<number>(url, httpOptions)
+    return this.http.delete<number>(url, httpHeader)
   }
 
   private log(message: string) {

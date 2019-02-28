@@ -23,6 +23,7 @@ namespace CPClient.Service.Model
         public int CEP { get; set; }
 
         public int EnderecoTipoId { get; set; }
+        public bool Ativo { get; set; }
 
     }
 }

@@ -1,4 +1,6 @@
-﻿using CPClient.Service.Model;
+﻿
+using Microsoft.Extensions.Configuration;
+using CPClient.Service.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -13,9 +15,30 @@ namespace CPClient.WebAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        public AuthController(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+        [HttpGet]
+        public string Get()
+        {
+            return "ok";
+        }
+
+        // POST api/auth
+        /// <summary>
+        /// Inserir Clientes
+        /// </summary>
+        /// <param name="user"></param>
         [HttpPost, Route("login")]
         public IActionResult Login([FromBody]LoginModel user)
         {
+
+            var urlApp =  Configuration.GetSection("UtilSettings:UrlAPI").Value;
+
             if (user == null)
             {
                 return BadRequest("Invalid client request");
@@ -27,8 +50,8 @@ namespace CPClient.WebAPI.Controllers
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
                 var tokeOptions = new JwtSecurityToken(
-                    issuer: "http://localhost:5000",
-                    audience: "http://localhost:5000",
+                    issuer: urlApp,
+                    audience: urlApp,
                     claims: new List<Claim>(),
                     expires: DateTime.Now.AddMinutes(5),
                     signingCredentials: signinCredentials

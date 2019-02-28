@@ -18,7 +18,9 @@ namespace CPClient.Service.Services
         }
 
         public bool Put(Cliente obj)
-        {            
+        {
+            obj.DataAtualizacao = System.DateTime.Now;
+
             return _repoWrapper.Cliente.Update(obj);
         }
 
