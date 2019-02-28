@@ -49,6 +49,11 @@ Responsável pelo processamento das solicitações geradas pelo frontEnd de gere
 Desenvolvido utilizando: 
 - .NET Core 2.2
 - Entity Core
+- JWToken
+- Swagger
+
+### Documentação das APIs
+[Swagger | https://localhost:44351/swagger/index.html]
 
 ### Estrutura do Projeto
 * Application
